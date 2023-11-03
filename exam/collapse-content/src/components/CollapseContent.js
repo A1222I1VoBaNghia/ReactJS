@@ -1,25 +1,44 @@
-import {useEffect, useState} from "react";
-export function CollapseContent() {
-    const [contents, setContents] = useState([]);
-    useEffect(()=>{
-        setContents([
-            {content: "React Native runs on React, a popular open source library for building user interfaces with JavaScript. To make the most of React Native, it helps to understand React itself. This section can get you started or can serve as a refresher course."}
-        ])
-    })
-    const showContent=()=>{
-            if(contents != null && contents.length > 0){
-                return(
-                   contents.c
-                )
-            } return <p>Không có nội dung</p>;
+import { Component } from "react";
+import Content from "./Content";
+class CollapseContent extends Component{
+    constructor(){
+        super();
+        this.state = {
+            isExpanded: false,
+        };
     }
-    return(
-        <>
-            <button type="button"onClick={showContent}>Xem giới thiệu</button>
-            <div>
-                {showContent}
+    handleClick = (isExpand)=>{
+        this.setState({isExpanded: !isExpand});
+    }
+    render(){
+        return(
+            <>
+            <div
+              style={{
+                backgroundColor: "green",
+                textAlign: "center",
+                padding: "20px",
+              }}
+            >
+              Conditional Rendering
             </div>
+            {
+            this.state.isExpanded ? (
+          <>
+            <button onClick={() => this.handleClick(this.state.isExpanded)}>
+              Đóng Giới THiệu
+            </button>
+            <Content></Content>
+          </>
+            ) : (
+          <>
+            <button onClick={() => this.handleClick(this.state.isExpanded)}>
+              Mở Giới THiệu
+            </button>
+          </>
+        )}
         </>
-    )
+        )
+    }
 }
 export default CollapseContent;
